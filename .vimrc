@@ -137,6 +137,8 @@ Plugin 'VundleVim/Vundle.vim'
 " use za to fold/unfold code block, zj and zk to move between them
 Plugin 'SimpylFold'
 map <Leader>z za
+map <Leader>c zM
+map <Leader>x zR
 
 " check pythen syntax problem when save
 Plugin 'scrooloose/syntastic'
