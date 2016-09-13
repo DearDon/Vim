@@ -73,7 +73,7 @@ call append(line("."), "\# File Name: ".expand("%"))
 call append(line(".")+1, "\# Purpose:")
 call append(line(".")+2, "\# This program is to")
 call append(line(".")+3, "\# History:")
-call append(line(".")+4, "\# Created Time: ".strftime("%c"))
+call append(line(".")+4, "\# Created Time: ".strftime("%F"))
 call append(line(".")+5, "\# Author: Don E-mail: dpdeng@whu.edu.cn")
 call append(line(".")+6, "\#########################################################################")
 autocmd BufNewFile * normal G
