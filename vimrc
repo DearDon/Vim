@@ -118,6 +118,11 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" map f2 to forbid auto-indent when paste
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
 " Put your non-Plugin stuff above this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Configuration for Plugin
