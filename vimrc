@@ -23,7 +23,7 @@ map <Leader>l <c-w>l
 
 " set tab=4 space
 set ts=4
-"set softtabstop=4
+set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
@@ -52,10 +52,15 @@ endif
 endfunction
 
 " python quick run from vi command
-map <Leader>rr :call RunPython()<CR>
+map <Leader>rp :call RunPython()<CR>
 func! RunPython()
 exec "w"
 exec "!python %"
+endfunc
+map <Leader>rb :call RunBash()<CR>
+func! RunBash()
+exec "w"
+exec "!bash %"
 endfunc
 map <Leader>r :!python %<space>
 
@@ -71,10 +76,10 @@ func! SetScriptTitle()
 call setline(1,"\#########################################################################")
 call append(line("."), "\# File Name: ".expand("%"))
 call append(line(".")+1, "\# Purpose:")
-call append(line(".")+2, "\# This program is to")
+call append(line(".")+2, "\#\tThis file is to")
 call append(line(".")+3, "\# History:")
-call append(line(".")+4, "\# Created Time: ".strftime("%F"))
-call append(line(".")+5, "\# Author:Don E-mail:dpdeng@whu.edu.cn")
+call append(line(".")+4, "\#\tCreated Time: ".strftime("%F"))
+call append(line(".")+5, "\# Author: Don E-mail: dpdeng@whu.edu.cn")
 call append(line(".")+6, "\#########################################################################")
 autocmd BufNewFile * normal G
 endfunc
@@ -87,12 +92,12 @@ call append(line(".")+2, "\date: ".strftime("%F"))
 call append(line(".")+3, "\categories: python")
 call append(line(".")+4, "tags: Markdown Vim")
 call append(line(".")+5, "\---")
-call append(line(".")+6, "\####<strong>History:</strong>")
-call append(line(".")+7, "*<em>20160911v1</em>:将内容记录下来</br>")
+call append(line(".")+6, "\#### <strong>History:</strong>")
+call append(line(".")+7, "* <em>20160911</em>:将内容记录下来</br>")
 call append(line(".")+8, "")
-call append(line(".")+9, "\####<strong>Background:</strong>")
+call append(line(".")+9, "\#### <strong>Background:</strong>")
 call append(line(".")+10, "")
-call append(line(".")+11, "\####<strong>Content:</strong>")
+call append(line(".")+11, "\#### <strong>Content:</strong>")
 autocmd BufNewFile * normal G
 endfunc
 
