@@ -136,3 +136,107 @@ set pastetoggle=<F2>
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
 
+" Put your non-Plugin stuff above this line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Configuration for Plugin
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+Plugin 'VundleVim/Vundle.vim'
+
+" use za to fold/unfold code block, zj and zk to move between them
+Plugin 'SimpylFold'
+map <Leader>z za
+map <Leader>c zM
+map <Leader>x zR
+
+" check pythen syntax problem when save
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
+let python_highlight_all=1
+syntax on
+
+" smart complete for py with tab, then move choose by c-n or c-p
+" besides, we can use c-n for text complete
+"Plugin 'Pydiction'
+"let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
+
+" smart complete
+Plugin 'Valloric/YoucompleteMe'
+" set bak global conf file
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" don't ask to confirm conf file
+let g:ycm_confirm_extra_conf=0
+set completeopt=longest,menu
+" set python path
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
+" set complete with syntax
+let g:ycm_seed_identifiers_with_syntax=1
+" set complete in comments
+let g:ycm_complete_in_comments=1
+let g:ycm_collect_identifiers_from_comments_and_strings=0
+" set min num of chars to start complete
+let g:ycm_min_num_of_chars_for_completion=2
+" close preview dialog after completion
+let g:ycm_autoclose_preview_window_after_completion=1
+" complete string
+let g:ycm_complete_in_strings=1
+
+" use c-p to search file
+Plugin 'ctrlp.vim'
+"let g:ctrlp_map = '<c-p>' " don't need
+ 
+" use c-shit-f to search variable
+Plugin 'dyng/ctrlsf.vim'
+map <Leader>f <Plug>CtrlSFPrompt
+map <Leader>F <Plug>CtrlSFQuickfixPrompt
+
+" show class or functions 
+Plugin 'majutsushi/tagbar'
+map <Leader>d :TagbarToggle<CR>
+
+" show indent-line
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char='|'
+let g:indentLine_enabled=1
+
+" auto format code
+Plugin 'tell-k/vim-autopep8'
+let g:autopep8_disable_show_diff=1
+
+" quick comment
+Plugin 'scrooloose/nerdcommenter'
+map <Leader>m <Leader>ci <CR>
+
+" show file tree
+Plugin 'scrooloose/nerdtree'
+map <Leader>t :NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
+let NERDTreeWinSize=20
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+"
+"  Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
