@@ -136,3 +136,5 @@ set pastetoggle=<F2>
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
 
+" find word in project
+vnoremap <Leader>f :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
