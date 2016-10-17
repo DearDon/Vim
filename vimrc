@@ -1,5 +1,5 @@
 " Auto reloading of vimrc after save
-autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost vimrc source %
 
 " remap esc to jj. Though it already be replaced by ctrl+c or ctrl+[
 ino jj <esc>
@@ -56,6 +56,11 @@ map <Leader>rp :call RunPython()<CR>
 func! RunPython()
 exec "w"
 exec "!python %"
+endfunc
+map <Leader>ru :call RunUnittest()<CR>
+func! RunUnittest()
+exec "w"
+exec "!python unittest_%"
 endfunc
 map <Leader>rb :call RunBash()<CR>
 func! RunBash()
@@ -128,57 +133,6 @@ nnoremap <F2> :set invpaste paste?<CR>
 imap <F2> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F2>
 
-" Put your non-Plugin stuff above this line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Configuration for Plugin
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" map vu to quick open unittest_file in split window
+map <Leader>vu <esc>:vs unittest_%<CR>
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-Plugin 'VundleVim/Vundle.vim'
-
-" use za to fold/unfold code block, zj and zk to move between them
-Plugin 'SimpylFold'
-map <Leader>z za
-map <Leader>c zM
-map <Leader>x zR
-
-" check pythen syntax problem when save
-Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
-let python_highlight_all=1
-syntax on
-
-" smart complete for py with tab, then move choose by c-n or c-p
-" besides, we can use c-n for text complete
-Plugin 'Pydiction'
-let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
-
-" use c-p to search file
-Plugin 'ctrlp.vim'
-"let g:ctrlp_map = '<c-p>' " don't need
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Bundle 'Valloric/YoucompleteMe'
-"
-"  Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
