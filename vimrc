@@ -12,8 +12,8 @@ set mouse=a
 let mapleader = ';'
 
 " moving betwwn tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>N <esc>:tabnext<CR>
+map <Leader>N <esc>:tabprevious<CR>
+map <Leader>n <esc>:tabnext<CR>
 
 " moving around sub-windows
 map <Leader>j <c-w>j
@@ -137,4 +137,4 @@ set pastetoggle=<F2>
 map <Leader>vu <esc>:vs unittest_%<CR>
 
 " find word in project
-vnoremap <Leader>f :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
+vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
