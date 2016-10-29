@@ -12,8 +12,8 @@ set mouse=a
 let mapleader = ';'
 
 " moving betwwn tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>N <esc>:tabnext<CR>
+map <Leader>N <esc>:tabprevious<CR>
+map <Leader>n <esc>:tabnext<CR>
 
 " moving around sub-windows
 map <Leader>j <c-w>j
