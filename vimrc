@@ -117,7 +117,7 @@ imap <F2> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F2>
 
 " find word in project
-vnoremap <Leader>f :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
+vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
 
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
