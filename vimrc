@@ -1,5 +1,5 @@
 " Auto reloading of vimrc after save
-autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost vimrc source %
 
 " remap esc to jj. Though it already be replaced by ctrl+c or ctrl+[
 ino jj <esc>
@@ -12,8 +12,8 @@ set mouse=a
 let mapleader = ';'
 
 " moving betwwn tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>N <esc>:tabnext<CR>
+map <Leader>N <esc>:tabprevious<CR>
+map <Leader>n <esc>:tabnext<CR>
 
 " moving around sub-windows
 map <Leader>j <c-w>j
@@ -57,6 +57,11 @@ func! RunPython()
 exec "w"
 exec "!python %"
 endfunc
+map <Leader>ru :call RunUnittest()<CR>
+func! RunUnittest()
+exec "w"
+exec "!python unittest_%"
+endfunc
 map <Leader>rb :call RunBash()<CR>
 func! RunBash()
 exec "w"
@@ -75,29 +80,12 @@ autocmd BufNewFile *.sh,*.py exec ":call SetScriptTitle()"
 func! SetScriptTitle()
 call setline(1,"\#########################################################################")
 call append(line("."), "\# File Name: ".expand("%"))
-call append(line(".")+1, "\# Purpose:")
-call append(line(".")+2, "\#\tThis file is to")
+call append(line(".")+1, "\# Introduction:")
+call append(line(".")+2, "\# \tThis program is to")
 call append(line(".")+3, "\# History:")
-call append(line(".")+4, "\#\tCreated Time: ".strftime("%F"))
-call append(line(".")+5, "\# Author: Don E-mail: dpdeng@whu.edu.cn")
+call append(line(".")+4, "\# \tCreated Time: ".strftime("%F"))
+call append(line(".")+5, "\# Author: ddeng \tE-mail: dongping.deng@asml.com")
 call append(line(".")+6, "\#########################################################################")
-autocmd BufNewFile * normal G
-endfunc
-autocmd BufNewFile *.md exec ":call SetMdPattern()"
-func! SetMdPattern()
-call setline(1,"\---")
-call append(line("."), "\layout: post")
-call append(line(".")+1, "title: Markdown自动设定")
-call append(line(".")+2, "\date: ".strftime("%F"))
-call append(line(".")+3, "\categories: python")
-call append(line(".")+4, "tags: Markdown Vim")
-call append(line(".")+5, "\---")
-call append(line(".")+6, "\#### <strong>History:</strong>")
-call append(line(".")+7, "* <em>20160911</em>:将内容记录下来</br>")
-call append(line(".")+8, "")
-call append(line(".")+9, "\#### <strong>Background:</strong>")
-call append(line(".")+10, "")
-call append(line(".")+11, "\#### <strong>Content:</strong>")
 autocmd BufNewFile * normal G
 endfunc
 
@@ -127,6 +115,12 @@ set noswapfile
 nnoremap <F2> :set invpaste paste?<CR>
 imap <F2> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F2>
+
+" find word in project
+vnoremap <Leader>f :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
+
+" map vu to quick open unittest_file in split window
+map <Leader>vu <esc>:vs unittest_%<CR>
 
 " Put your non-Plugin stuff above this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,9 +155,60 @@ syntax on
 Plugin 'Pydiction'
 let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
 
+"" smart complete(advance plugin)
+"Plugin 'Valloric/YoucompleteMe'
+"" set bak global conf file
+"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+"" don't ask to confirm conf file
+"let g:ycm_confirm_extra_conf=0
+""set completeopt=longest,menu
+"" set python path
+"let g:ycm_path_to_python_interpreter='/usr/bin/python'
+"" set complete with syntax
+"let g:ycm_seed_identifiers_with_syntax=1
+"" set complete in comments
+"let g:ycm_complete_in_comments=1
+"let g:ycm_collect_identifiers_from_comments_and_strings=0
+"" set min num of chars to start complete
+"let g:ycm_min_num_of_chars_for_completion=2
+"" close preview dialog after completion
+"let g:ycm_autoclose_preview_window_after_completion=1
+"" complete string
+"let g:ycm_complete_in_strings=1
+
 " use c-p to search file
 Plugin 'ctrlp.vim'
 "let g:ctrlp_map = '<c-p>' " don't need
+ 
+"" use c-shit-f to search variable(advance plugin)
+"Plugin 'dyng/ctrlsf.vim'
+"map <Leader>f <Plug>CtrlSFPrompt
+"map <Leader>F <Plug>CtrlSFQuickfixPrompt
+
+"" show class or functions (advance plugin)
+"Plugin 'majutsushi/tagbar'
+"map <Leader>d :TagbarToggle<CR>
+
+" show indent-line
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char='|'
+let g:indentLine_enabled=1
+
+" auto format code
+Plugin 'tell-k/vim-autopep8'
+let g:autopep8_disable_show_diff=1
+
+" quick comment
+Plugin 'scrooloose/nerdcommenter'
+map <Leader>m <Leader>ci <CR>
+
+" show file tree
+Plugin 'scrooloose/nerdtree'
+map <Leader>t :NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
+let NERDTreeWinSize=40
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -171,7 +216,6 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
-" Bundle 'Valloric/YoucompleteMe'
 "
 "  Brief help
 " :PluginList       - lists configured plugins
