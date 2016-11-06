@@ -138,3 +138,11 @@ map <Leader>vu <esc>:vs unittest_%<CR>
 
 " find word in project
 vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
+
+" map a to quick check words grammer with aspell
+map <Leader>a <esc>:!aspell -c %<CR>
+
+" map q to quick quit that's efficient for multi-subwindows
+map <Leader>q <esc>:q<CR>
+map <Leader>qq <esc>:q!<CR>
+map <Leader>wq <esc>:wq<CR>
