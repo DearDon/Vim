@@ -122,6 +122,14 @@ vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cw
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
 
+" map a to quick check words grammer with aspell
+map <Leader>a <esc>:!aspell -c %<CR>
+
+" map q to quick quit that's efficient for multi-subwindows
+map <Leader>q <esc>:q<CR>
+map <Leader>qq <esc>:q!<CR>
+map <Leader>wq <esc>:wq<CR>
+
 " Put your non-Plugin stuff above this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Configuration for Plugin
