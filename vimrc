@@ -74,6 +74,8 @@ set nobackup
 
 " show line number
 set nu
+nnoremap <F4> :set nu!<CR>
+imap <F4> <C-O>:set nu!<CR>
 
 " add file head content for script and markdown
 autocmd BufNewFile *.sh,*.py exec ":call SetScriptTitle()"
@@ -112,9 +114,9 @@ set nowritebackup
 set noswapfile
 
 " map f2 to forbid auto-indent when paste
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
+nnoremap <F3> :set invpaste paste?<CR>
+imap <F3> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F3>
 
 " find word in project
 vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
@@ -199,8 +201,10 @@ Plugin 'ctrlp.vim'
 
 " show indent-line
 Plugin 'Yggdroot/indentLine'
-let g:indentLine_char='|'
+let g:indentLine_char = '┊'
 let g:indentLine_enabled=1
+nnoremap <F5> :IndentLinesToggle<CR>
+imap <F5> <C-O>:IndentLinesToggle<CR>
 
 " auto format code
 Plugin 'tell-k/vim-autopep8'
@@ -212,7 +216,8 @@ map <Leader>m <Leader>ci <CR>
 
 " show file tree
 Plugin 'scrooloose/nerdtree'
-map <Leader>t :NERDTreeToggle<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
+imap <F2> <C-O>:NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
