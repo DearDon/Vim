@@ -74,6 +74,8 @@ set nobackup
 
 " show line number
 set nu
+nnoremap <F4> :set nu!<CR>
+imap <F4> <C-O>:set nu!<CR>
 
 " add file head content for script and markdown
 autocmd BufNewFile *.sh,*.py exec ":call SetScriptTitle()"
@@ -129,9 +131,9 @@ set nowritebackup
 set noswapfile
 
 " map f2 to forbid auto-indent when paste
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
+nnoremap <F3> :set invpaste paste?<CR>
+imap <F3> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F3>
 
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
