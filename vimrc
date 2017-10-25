@@ -11,7 +11,7 @@ set mouse=a
 " Rebind <Leader> key
 let mapleader = ';'
 
-" moving betwwn tabs
+" moving between tabs
 map <Leader>N <esc>:tabprevious<CR>
 map <Leader>n <esc>:tabnext<CR>
 
@@ -78,29 +78,43 @@ nnoremap <F4> :set nu!<CR>
 imap <F4> <C-O>:set nu!<CR>
 
 " add file head content for script and markdown
-autocmd BufNewFile *.sh,*.py exec ":call SetScriptTitle()"
-func! SetScriptTitle()
-call setline(1,"\#########################################################################")
-call append(line("."), "\# File Name: ".expand("%"))
-call append(line(".")+1, "\# Purpose:")
-call append(line(".")+2, "\#\tThis file is to")
-call append(line(".")+3, "\# History:")
-call append(line(".")+4, "\#\tCreated Time: ".strftime("%F"))
-call append(line(".")+5, "\# Author: Don E-mail: dpdeng@whu.edu.cn")
-call append(line(".")+6, "\#########################################################################")
+autocmd BufNewFile *.sh exec ":call SetShellScriptTitle()"
+func! SetShellScriptTitle()
+call setline(1,"\#!/bin/env bash")
+call append(line("."), "\# vim:set ts=4 softtabstop=4 sw=4 shiftround expandtab:")
+call append(line(".")+1, "\################################################################")
+call append(line(".")+2, "\# File Name: ".expand("%"))
+call append(line(".")+3, "\# Introduction:")
+call append(line(".")+4, "\# \tThis program is to")
+call append(line(".")+5, "\# Author: ddeng(dongping.deng@asml.com)  Time: ".strftime("%F"))
+call append(line(".")+6, "\################################################################")
 autocmd BufNewFile * normal G
 endfunc
+
+autocmd BufNewFile *.py exec ":call SetPythonScriptTitle()"
+func! SetPythonScriptTitle()
+call setline(1,"\#!/bin/env python")
+call append(line("."), "\# vim:set ts=4 softtabstop=4 sw=4 shiftround expandtab:")
+call append(line(".")+1, "\"\"\"")
+call append(line(".")+2, "File Name: ".expand("%"))
+call append(line(".")+3, "Introduction:")
+call append(line(".")+4, "    This program is to")
+call append(line(".")+5, "Author: ddeng(dongping.deng@asml.com)  Time: ".strftime("%F"))
+call append(line(".")+6, "\"\"\"")
+autocmd BufNewFile * normal G
+endfunc
+
 autocmd BufNewFile *.md exec ":call SetMdPattern()"
 func! SetMdPattern()
 call setline(1,"\---")
 call append(line("."), "\layout: post")
-call append(line(".")+1, "title: Markdown自动设定")
+call append(line(".")+1, "title: Markdown init")
 call append(line(".")+2, "\date: ".strftime("%F"))
 call append(line(".")+3, "\categories: python")
 call append(line(".")+4, "tags: Markdown Vim")
 call append(line(".")+5, "\---")
 call append(line(".")+6, "\#### <strong>History:</strong>")
-call append(line(".")+7, "* <em>20160911</em>:将内容记录下来</br>")
+call append(line(".")+7, "* <em>".strftime("%F")."</em>:create the page<br>")
 call append(line(".")+8, "")
 call append(line(".")+9, "\#### <strong>Background:</strong>")
 call append(line(".")+10, "")
@@ -135,11 +149,12 @@ nnoremap <F3> :set invpaste paste?<CR>
 imap <F3> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F3>
 
+" find word in project
+vnoremap <Leader>f :<BS><BS><BS><BS><BS>noautocmd execute "/" . expand("<cword>") <CR>
+vnoremap <Leader>F :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
+
 " map vu to quick open unittest_file in split window
 map <Leader>vu <esc>:vs unittest_%<CR>
-
-" find word in project
-vnoremap <c-f> :<BS><BS><BS><BS><BS>noautocmd execute "lvimgrep /" . expand("<cword>") . "/gj **/*" <Bar> lw<CR>
 
 " map a to quick check words grammer with aspell
 map <Leader>a <esc>:!aspell -c %<CR>
@@ -148,3 +163,112 @@ map <Leader>a <esc>:!aspell -c %<CR>
 map <Leader>q <esc>:q<CR>
 map <Leader>qq <esc>:q!<CR>
 map <Leader>wq <esc>:wq<CR>
+
+" Put your non-Plugin stuff above this line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Configuration for Plugin
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+"git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+Plugin 'VundleVim/Vundle.vim'
+
+" use za to fold/unfold code block, zj and zk to move between them
+Plugin 'SimpylFold'
+map <Leader>z za
+map <Leader>c zM
+map <Leader>x zR
+
+" check pythen syntax problem when save
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
+let python_highlight_all=1
+"let g:syntastic_check_on_wq = 0
+syntax on
+
+" simple smart complete for py with tab, then move choose by c-n or c-p
+" besides, we can use c-n for text complete
+"Plugin 'Pydiction'
+"let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
+
+" advanced smart complete
+Plugin 'Valloric/YoucompleteMe'
+" set bak global conf file
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" don't ask to confirm conf file
+let g:ycm_confirm_extra_conf=0
+set completeopt=longest,menu
+" set python path
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
+" set complete with syntax
+let g:ycm_seed_identifiers_with_syntax=1
+" set complete in comments
+let g:ycm_complete_in_comments=1
+let g:ycm_collect_identifiers_from_comments_and_strings=0
+" set min num of chars to start complete
+let g:ycm_min_num_of_chars_for_completion=2
+" close preview dialog after completion
+let g:ycm_autoclose_preview_window_after_completion=1
+" complete string
+let g:ycm_complete_in_strings=1
+
+" use c-p to search file
+Plugin 'ctrlp.vim'
+"let g:ctrlp_map = '<c-p>' " don't need
+ 
+" use c-shit-f to search variable
+Plugin 'dyng/ctrlsf.vim'
+map <Leader><c-f> <Plug>CtrlSFPrompt
+map <Leader><c-F> <Plug>CtrlSFQuickfixPrompt
+
+" show class or functions 
+Plugin 'majutsushi/tagbar'
+map <Leader>d :TagbarToggle<CR>
+
+" show indent-line
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char = '┊'
+let g:indentLine_enabled=1
+nnoremap <F5> :IndentLinesToggle<CR>
+imap <F5> <C-O>:IndentLinesToggle<CR>
+
+" auto format code
+Plugin 'tell-k/vim-autopep8'
+let g:autopep8_disable_show_diff=1
+
+" quick comment
+Plugin 'scrooloose/nerdcommenter'
+map <Leader>m <Leader>ci <CR>
+
+" show file tree
+Plugin 'scrooloose/nerdtree'
+nnoremap <F2> :NERDTreeToggle<CR>
+imap <F2> <C-O>:NERDTreeToggle<CR>
+let NERDTreeChDirMode=1
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\~$','\.pyc$','\.swp$']
+let NERDTreeWinSize=20
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+"
+"  Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
