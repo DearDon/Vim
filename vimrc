@@ -80,26 +80,26 @@ imap <F4> <C-O>:set nu!<CR>
 " add file head content for script and markdown
 autocmd BufNewFile *.sh exec ":call SetShellScriptTitle()"
 func! SetShellScriptTitle()
-call setline(1,"\#!/bin/env bash")
+call setline(1,"\#!/user/bin/env bash")
 call append(line("."), "\# vim:set ts=4 softtabstop=4 sw=4 shiftround expandtab:")
 call append(line(".")+1, "\################################################################")
 call append(line(".")+2, "\# File Name: ".expand("%"))
 call append(line(".")+3, "\# Introduction:")
 call append(line(".")+4, "\# \tThis program is to")
-call append(line(".")+5, "\# Author: ddeng(dongping.deng@asml.com)  Time: ".strftime("%F"))
+call append(line(".")+5, "\# Author: Don(dpdeng@whu.edu.com)  Time: ".strftime("%F"))
 call append(line(".")+6, "\################################################################")
 autocmd BufNewFile * normal G
 endfunc
 
 autocmd BufNewFile *.py exec ":call SetPythonScriptTitle()"
 func! SetPythonScriptTitle()
-call setline(1,"\#!/bin/env python")
+call setline(1,"\#!/user/bin/env python")
 call append(line("."), "\# vim:set ts=4 softtabstop=4 sw=4 shiftround expandtab:")
 call append(line(".")+1, "\"\"\"")
 call append(line(".")+2, "File Name: ".expand("%"))
 call append(line(".")+3, "Introduction:")
 call append(line(".")+4, "    This program is to")
-call append(line(".")+5, "Author: ddeng(dongping.deng@asml.com)  Time: ".strftime("%F"))
+call append(line(".")+5, "Author: Don(dpdeng@whu.edu.com)  Time: ".strftime("%F"))
 call append(line(".")+6, "\"\"\"")
 autocmd BufNewFile * normal G
 endfunc
